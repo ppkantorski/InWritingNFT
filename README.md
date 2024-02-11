@@ -1,7 +1,8 @@
 # InWritingNFT Executer
 ## Installation
-1. Set your [Alchemy API key](https://www.alchemy.com/) in `iwnft.py`.
-2. Execute python NFT i.e. `python3 iwnft.py -x 6077`.
+1. Run `git clone https://github.com/ppkantorski/InWritingNFT.git` to download InWritingNFT Executor.
+2. Set your [Alchemy API key](https://www.alchemy.com/) in `iwnft.py`.
+3. Execute python NFT i.e. `python3 iwnft.py -x 6077`.
 
 ## Optional: Obstructify Alias
 1. Add the following line with your script path to `~/.bashrc`.
