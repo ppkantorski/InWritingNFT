@@ -11,7 +11,7 @@ except:
 class InWritingNFTExplorer(object):
     def __init__(self):
         # User specified API-keys
-        self.ALCHEMY_API_KEY = ""
+        self.ALCHEMY_API_KEY = "2QYn3W4a8Br8U_Yxm3iWRUESKirDCrci"
         self.POLYGONSCAN_API_KEY = ""
         # API Urls
         self.ALCHEMY_API_URL = f"https://polygon-mainnet.g.alchemy.com/v2/{self.ALCHEMY_API_KEY}"
@@ -217,27 +217,30 @@ if __name__ == '__main__':
         
         inwriting = InWritingNFTExplorer()
         inwriting.print_on_load = True
+        auto_yes = False
+        
+        # Check for the '-y' option
+        if '-y' in sys.argv:
+            inwriting.print_on_load = False
+            auto_yes = True
         
         evaluate = False; i = 0
-        if sys.argv[1] == '-x':
+        if '-x' in sys.argv:
             evaluate = True
-            i += 1
+            i = sys.argv.index('-x')
+            token = sys.argv[i+1] if i+1 < len(sys.argv) else None
         
-        if sys.argv[i+1].isdigit():
-            nft = inwriting.get_nft_by_token(sys.argv[i+1])
+        if token is not None and token.isdigit():
+            nft = inwriting.get_nft_by_token(token)
             
             if not (nft is None):
-                #print(colors[random.randint(0,len(colors)-1)], end='')
-                #print("======================")
-                #print('  ',metadata['name'])
-                #print("======================")
-                ##if evaluate == False:
-                #print(nft_data)
-                
                 if evaluate and nft.startswith(PYTHON_HEADER):
-                    warning_prompt = str(input(f"{Symbol.NEUTRAL_STR} Are you sure you want to execute the specified NFT? (y|n): ")).lower()
-                    if warning_prompt == 'y':
+                    if auto_yes:
                         exec(nft)
+                    else:
+                        warning_prompt = input(f"{Symbol.NEUTRAL_STR} Are you sure you want to execute the specified NFT? (y|n): ").lower()
+                        if warning_prompt == 'y':
+                            exec(nft)
                         #os.system(f"""python -c '''{nft}'''""")
         else:
             if len(sys.argv) > i+2:
